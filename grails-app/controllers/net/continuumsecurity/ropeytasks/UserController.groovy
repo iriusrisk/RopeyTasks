@@ -8,10 +8,6 @@ class UserController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
-    def index() {
-        redirect(action: "list", params: params)
-    }
-
 	def edit() {
 		def userInstance = User.get(params.id)
 		if (!userInstance) {
@@ -68,7 +64,7 @@ class UserController {
 		def user = null
 		if (params.username != null) {
 			def users = User.executeQuery("from User u where u.username='${params.username}'")
-			if (users != null) {
+			if (users != null && users.size() > 0) {
 				user = users[0]
 				log.debug "Found user: ${user.username} with password: ${user.password} ID: ${user.id}"
 				if (user.password.equalsIgnoreCase(params.password)) {
