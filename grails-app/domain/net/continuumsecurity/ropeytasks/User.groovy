@@ -7,6 +7,7 @@ class User {
 	String firstname
 	String lastname
 	int role = 0
+	int failedLogins = 0
 	
 	static hasMany = [tasks: Task]
 	

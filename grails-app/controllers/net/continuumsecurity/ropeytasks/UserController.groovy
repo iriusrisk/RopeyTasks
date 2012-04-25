@@ -5,8 +5,10 @@ import org.springframework.dao.DataIntegrityViolationException
 import com.sun.xml.internal.rngom.parse.xml.SchemaParser.ParamState;
 
 class UserController {
-
+	
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+	
+	def recaptchaService
 
 	def edit() {
 		def userInstance = User.get(params.id)
@@ -59,18 +61,57 @@ class UserController {
 		])
 		redirect(controller: "task",action: "list")
 	}
-
+	
+	def recover() {
+		if (params.email == null) {
+			render(view: 'recover')
+			return
+		}
+		if (!recaptchaService.verifyAnswer(session, request.getRemoteAddr(), params)) {
+			flash.message = "CAPTCHA failed"
+			render(view: "recover")
+			return
+		} else {
+			recaptchaService.cleanUp(session)
+		}
+		def users = User.executeQuery("from User u where u.email='${params.email}'")
+		if (users != null && users.size() > 0) {
+			flash.message = 'Email with login details sent!'
+			redirect(action: 'login')
+		} else {
+			flash.message = 'No such user found'
+		}
+		
+	}
+	
 	def login() {
 		def user = null
-		if (params.username != null) {
+   		if (params.username != null) {	
 			def users = User.executeQuery("from User u where u.username='${params.username}'")
 			if (users != null && users.size() > 0) {
 				user = users[0]
+				session['failedLogins'] = user.failedLogins
+				if (session['failedLogins'] >= 3) {
+					if (!recaptchaService.verifyAnswer(session, request.getRemoteAddr(), params)) {
+						flash.message = "CAPTCHA failed"
+						log.debug("CAPTCHA failed, returning user: "+user.username)
+						render(view: "login",model: [user: user])
+						return
+					} else {
+						recaptchaService.cleanUp(session)
+						flash.message = ""
+					}
+				}
+				
 				log.debug "Found user: ${user.username} with password: ${user.password} ID: ${user.id}"
 				if (user.password.equalsIgnoreCase(params.password)) {
+					user.failedLogins = 0
+					user.save()
 					session['user'] = user
 					log.debug 'Successfully logged in user: '+user.username
 				} else {
+					user.failedLogins = user.failedLogins + 1
+					user.save()
 					log.debug "Incorrect password: ${params.password} for username: ${params.username}"
 					flash.message = "Incorrect password"
 				}
@@ -78,15 +119,18 @@ class UserController {
 				log.debug "Username: "+params.username+" not found."
 				flash.message = "Username: "+params.username+" not found."
 			}	
-		}
+		} 
 		if (session.user != null) {
 			flash.message = ''
 			if (session.user.role == 0) {
 				redirect(controller: "task", action: "list")
+				return
 			} else {
 				redirect(controller: "admin", action: "list")
+				return
 			}	
-		}	
+		}
+		[user: user]	
 	}
 	
 	def logout() {

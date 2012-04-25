@@ -19,7 +19,7 @@ class SecurityFilters {
 		
         all(controller:'*', action:'*') {
             before = {
-				if (!session.user && actionName != "login") {
+				if (!session.user && actionName != "login" && actionName != 'recover') {
 					log.debug 'User not logged in, redirecting.'
 					redirect(controller: "user", action: "login")
 					

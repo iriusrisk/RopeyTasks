@@ -9,29 +9,23 @@
 </head>
 <body>
 	<div class="content scaffold-edit" role="main">
-		<h1>Login</h1>
+		<h1>Recover password</h1>
 		<br/> <br/>
 		<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 		</g:if>
 
 		<g:form method="post">
+			<label for="username">Enter your email address</label>
+			<g:textField name="email" />
 
-			<label for="username">Username</label>
-			<g:textField name="username" value="${userInstance?.username}" />
-
-			<label for="password">Password </label>
-			<g:passwordField name="password" value="${userInstance?.password}" />
-
-			<g:if test="${session['failedLogins'] >= 3}">
-				<recaptcha:recaptcha/>
-			</g:if>
-
+			
+			<recaptcha:recaptcha/>
+			
 			<fieldset class="buttons">
-				<g:actionSubmit action="login" value="Login" />
+				<g:actionSubmit action="recover" value="Recover" />
 			</fieldset>
 		</g:form>
-		<g:link controller="user" action="recover">Forgot your password?</g:link>
 	</div>
 </body>
 </html>
