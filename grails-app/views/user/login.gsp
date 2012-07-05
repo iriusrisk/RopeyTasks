@@ -10,7 +10,7 @@
 <body>
 	<div class="content scaffold-edit" role="main">
 		<h1>Login</h1>
-		<br/> <br/>
+		<br /> <br />
 		<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 		</g:if>
@@ -24,7 +24,10 @@
 			<g:passwordField name="password" value="${userInstance?.password}" />
 
 			<g:if test="${session['failedLogins'] >= 3}">
-				<recaptcha:recaptcha/>
+				<recaptcha:ifEnabled>
+					<recaptcha:recaptcha />
+				</recaptcha:ifEnabled>
+
 			</g:if>
 
 			<fieldset class="buttons">
