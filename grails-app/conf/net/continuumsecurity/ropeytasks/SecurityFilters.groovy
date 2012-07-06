@@ -5,10 +5,10 @@ class SecurityFilters {
     def filters = {
 		admin(controller:'admin', action:'list') {
 			before = {
-				//if (session?.user?.role != 1) {
-				//	redirect(controller: "user", action: "login")
-                //    return
-				//}
+				if (session?.user?.role != 1) {
+					redirect(controller: "user", action: "login")
+                    return
+				}
 			}
 			after = { Map model ->
 
