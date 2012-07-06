@@ -26,10 +26,10 @@ environments {
   production {
     recaptcha {
       // Set to false to disable the display of captcha
-      enabled = true
+      enabled = false
 
       // Communicate using HTTPS
-      useSecureAPI = true
+      useSecureAPI = false
     }
   }
 }
