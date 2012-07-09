@@ -6,10 +6,10 @@ class SecurityFilters {
 		admin(controller:'admin', action:'list') {
             //Disable access control
 			before = {
-				if (session?.user?.role != 1) {
-					redirect(controller: "user", action: "login")
-                    return
-				}
+				//if (session?.user?.role != 1) {
+				//	redirect(controller: "user", action: "login")
+                //   return
+				//}
 			}
 			after = { Map model ->
 
