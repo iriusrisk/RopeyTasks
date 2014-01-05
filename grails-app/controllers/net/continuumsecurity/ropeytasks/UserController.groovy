@@ -103,16 +103,13 @@ class UserController {
 					}
 				}
 				
-				log.debug "Found user: ${user.username} with password: ${user.password} ID: ${user.id}"
 				if (user.password.equalsIgnoreCase(params.password)) {
 					user.failedLogins = 0
 					user.save()
 					session['user'] = user
-					log.debug 'Successfully logged in user: '+user.username
 				} else {
 					user.failedLogins = user.failedLogins + 1
 					user.save()
-					log.debug "Incorrect password: ${params.password} for username: ${params.username}"
 					flash.message = "Incorrect password"
 				}
 			} else {
