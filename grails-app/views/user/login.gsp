@@ -15,7 +15,7 @@
 			<div class="message" role="status">${flash.message}</div>
 		</g:if>
 
-		<g:form method="post">
+		<g:form method="post" autocomplete="off">
 
 			<label for="username">Username</label>
 			<g:textField name="username" value="${userInstance?.username}" />
