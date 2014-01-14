@@ -17,6 +17,7 @@
 
 		<g:form method="post" autocomplete="off">
 
+
 			<label for="username">Username</label>
 			<g:textField name="username" value="${userInstance?.username}" />
 
