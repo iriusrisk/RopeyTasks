@@ -14,3 +14,8 @@ The recommended way to run this is to install www.grails.org version >= 2.0.3 so
 
 ## 2. Without grails
 Just copy the .war to a servlet container.
+
+## 3. Credentials
+- admin/password
+- bob/password
+- alice/password
