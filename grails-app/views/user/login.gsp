@@ -31,7 +31,7 @@
 			</g:if>
 
 			<fieldset class="buttons">
-				<g:actionSubmit action="login" value="Login" />
+				<g:actionSubmit action="login" id="loginbtn" value="Login" />
 			</fieldset>
 		</g:form>
 		<g:link controller="user" action="recover">Forgot your password?</g:link>

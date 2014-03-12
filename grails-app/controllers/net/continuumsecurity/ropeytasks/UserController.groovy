@@ -11,7 +11,8 @@ class UserController {
 	def recaptchaService
 
 	def edit() {
-		def userInstance = User.get(params.id)
+		def userInstance = User.get(session.user.id)
+        //def userInstance = User.get(params.id)  //Vulnerable
 		if (!userInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [
 				message(code: 'user.label', default: 'User'),
