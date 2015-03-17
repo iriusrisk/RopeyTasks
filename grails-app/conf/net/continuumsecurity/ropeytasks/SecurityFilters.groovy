@@ -19,9 +19,9 @@ class SecurityFilters {
             }
         }
 
-        all(controller: '*', action: '*') {
+        all(controller: '*', action: '*', uriExclude: '/assets/**') {
             before = {
-                if (!session.user && actionName != "login" && actionName != 'recover') {
+                if (!session.user && actionName != "login" && actionName != 'recover' ) {
                     log.debug 'User not logged in, redirecting.'
                     redirect(controller: "user", action: "login")
                     return
