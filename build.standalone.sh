@@ -1,1 +1,1 @@
-grails build-standalone -Dbuild.compiler=javac1.7 ropeytasks.jar
+grails prod build-standalone ropeytasks.jar

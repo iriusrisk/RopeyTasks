@@ -50,12 +50,8 @@
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/scaffolding-2.1.2/src/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/scaffolding-2.1.2/src/groovy" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/target/work/plugins/standalone-1.3">
-      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/standalone-1.3/src/java" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/target/work/plugins/tomcat-7.0.55">
-      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/tomcat-7.0.55/src/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/tomcat-7.0.55/src/groovy" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/target/work/plugins/standalone-9.0.0.M4">
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/standalone-9.0.0.M4/src/java" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/target/work/plugins/webxml-1.4.1">
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/webxml-1.4.1/src/groovy" isTestSource="false" />
