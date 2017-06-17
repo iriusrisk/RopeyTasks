@@ -17,10 +17,10 @@
 		</div>
 		<div id="list-task" class="content scaffold-list" role="main">
 			<g:form name="search" method="GET" action="search">
-				<table><tr><td><g:textField name="q"/></td><td><g:submitButton name="search" value="Search" /></td></tr></table>
+				<table><tr><td><g:textField name="q"/></td><td><g:submitButton name="search-button" value="Search" /></td></tr></table>
 			</g:form>
 			<g:if test="${query?.length() > 0}">
-				Results for: ${query}
+				Results for: ${raw(query)}
 			</g:if>
 			
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>

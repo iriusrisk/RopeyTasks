@@ -7,8 +7,6 @@ import com.sun.xml.internal.rngom.parse.xml.SchemaParser.ParamState;
 class UserController {
 	
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-	
-	def recaptchaService
 
 	def edit() {
 		//def userInstance = User.get(session.user.id)
@@ -68,13 +66,6 @@ class UserController {
 			render(view: 'recover')
 			return
 		}
-		if (!recaptchaService.verifyAnswer(session, request.getRemoteAddr(), params)) {
-			flash.message = "CAPTCHA failed"
-			render(view: "recover")
-			return
-		} else {
-			recaptchaService.cleanUp(session)
-		}
 		def users = User.executeQuery("from User u where u.email='${params.email}'")
 		if (users != null && users.size() > 0) {
 			flash.message = 'Email with login details sent!'
@@ -92,17 +83,6 @@ class UserController {
 			if (users != null && users.size() > 0) {
 				user = users[0]
 				session['failedLogins'] = user.failedLogins
-				if (session['failedLogins'] >= 3) {
-					if (!recaptchaService.verifyAnswer(session, request.getRemoteAddr(), params)) {
-						flash.message = "CAPTCHA failed"
-						log.debug("CAPTCHA failed, returning user: "+user.username)
-						render(view: "login",model: [user: user])
-						return
-					} else {
-						recaptchaService.cleanUp(session)
-						flash.message = ""
-					}
-				}
 				
 				if (user.password.equalsIgnoreCase(params.password)) {
 					user.failedLogins = 0
