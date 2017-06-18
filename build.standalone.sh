@@ -1,1 +1,1 @@
-grails prod build-standalone ropeytasks.jar
+grails prod build-standalone --jetty ropeytasks.jar
